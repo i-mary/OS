@@ -8,7 +8,7 @@
 2 hdd
 SATA контроллер на 4 порта
 
-![] (https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Sceen1.jpg)
+![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Sceen1.jpg)
 
 То есть изначально у нас 2 пустых диска:
 
