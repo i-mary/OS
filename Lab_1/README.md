@@ -2,5 +2,3 @@
 ## SUZEN
 
 Выполнила Прошакова Мария, группа ББСО-02-18
-
-Задание: ![](https://github.com/bykvaadm/OS/tree/master/admin/lab1)
