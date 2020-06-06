@@ -6,9 +6,13 @@
 #### Задание 1.
 
 Создала VM с заданными характеристиками:
+
 1 gb ram
+ 
 1 cpu
+
 2 hdd
+
 SATA контроллер на 4 порта
 
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Sceen1.jpg)
@@ -22,6 +26,7 @@ SATA контроллер на 4 порта
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen03.jpg)
 
 Выполним создание нового raid устройства
+
 (зеркальный массив = raid1):
 
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen04.jpg)
@@ -31,6 +36,7 @@ SATA контроллер на 4 порта
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen05.jpg)
 
 Выполнила разметку этих томов, установив mount point
+
 /, /var, /var/log для root, var, log соответственно
 
 Завершив настройку LVM, видим:
@@ -67,9 +73,11 @@ SATA контроллер на 4 порта
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen12.jpg)
 
 Raid «развалился», ведь теперь у нас только 1 диск
+
 VM по-прежнему работает.
 
 Добавили в свойствах машины новый диск.
+
 У него ещё нет никакой таблицы разделов:
 
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen13.jpg)
@@ -109,6 +117,7 @@ VM по-прежнему работает.
 Машина видит новый диск. Старый диск не переименовался, так как его порядковый номер порта SATA был меньше чем у нового диска.
 
 Скопировав файловую таблицу со старого диска на новый командой sfdisk -d /dev/sda | sfdisk /dev/sdb, видим, что /boot не скопировался.
+
 Поэтому перемонтируем его и на новый диск.
 И выполним установку grub на новый диск:
 
@@ -117,10 +126,15 @@ VM по-прежнему работает.
 Создадим новый массив командой mdadm --create --verbose /dev/md63 --level=1 --force --raid-devices=1 /dev/sdb2.
 
 Ключи:
+
 --create - указывает на то, что мы создаем массив;
+
 --verbose - название массива;
+
 --level=1 - тип RAID-массива, у нас зеркальный;
+
 --force - собирает массив в любом случае, даже при каких-либо несоответствиях, в нашем случае количество дисков в массиве должно быть минимум равно 2;
+
 --raid-devices=1 - задает количество дисков в массиве.
 
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen20.jpg)
@@ -185,8 +199,11 @@ VM по-прежнему работает.
 С помощью утилиты для работы со службами(systemctl) останавливаем все процессы, которые работают с /var/log, а с помощью утилиты lsof, которая выводит информацию о том какие файлы используются теми или иными процессами узнаем, что всё остановилось.
 
 И теперь Перемонтируем /var/log командами:
+
 umount /mnt
+
 umount /var/log
+
 mount /dev/mapper/data-var_log /var/log
 
 ![](https://github.com/i-mary/OS/blob/master/Lab_2/screenshots/Screen34.jpg)
